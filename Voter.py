@@ -1,17 +1,26 @@
+import csv
+Dfile=open("store_.csv","a+")
+csv.writer
 def login_dets(): #basicinformation
     f_name=input("First Name-")
     s_name=input("Surname-")
     age=int(input("Age-"))
+    age_check(age)
     gender=input("Male(M),Female(F),Other(O)-")
     dob=input("Date of Birth-(dd/mm/yyyy)")
-    return f_name, s_name, age, gender, dob
-
-def age_check(): #agecheck
-    if login_dets(age)<18:
-        print("error in age")
+    record=[f_name,s_name, str(age), gender, dob]
+    stuwriter=csv.writer(Dfile)
+    stuwriter.writerow(record)
+    return
+def age_check(q):#agecheck
+    t=1
+    if q<18:
+        print("error,voting is only eligible for person who is 18 yrs old or above")
+        quit()
         return
+login_dets()
     
-def d_o_b(): #datecheck
+'''def d_o_b(): #datecheck
     m1=['01','03','05','08','10','12']
     m2=['04','06','07','09','11']
     m3=['02']
@@ -61,7 +70,7 @@ def casting_vote():
         c_party.upper()
         c_symbol.upper()
         vote=[c_name,c_party,c_symbol]
-        if vote in 
+        if vote in '''
 
 
 
