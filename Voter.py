@@ -79,17 +79,13 @@ def voter_info(a): #voting information
     if id_[0:3].isupper()==False:
         print('!!!!Invalid Voter ID!!!!')
         quit()
-    '''listfinal=[0,1]    
-    voterid_check(id_,listfinal)
-    print(listfinal)'''
+    voter_id_check(id_)    
     resd_,check_resd=address()
     const_=input("Constituency from where you would like to vote-")
     const_=const_.upper()
     constituency_check(check_resd,const_)
     ext=[id_,resd_,const_]
     final_rec=a+ext
-    '''listfinal.append(id_)
-    print(listfinal)'''
     stuwriter.writerow(final_rec)
     return const_
 
@@ -121,19 +117,33 @@ def casting_vote(c): #casting vote
     vote=[c_party,c_symbol]
     print(vote)
     return
-  
-'''def voterid_check(i,l):
-    if i in l:
-        print('ERROR')
-        print("!!!!Voter ID already exists!!!!")
-        quit()
-    return'''
 
+def voter_id_check(checkid): #voter id repetion check
+    check=[checkid]
+    with open("voter_id.csv","r") as Efile:
+        ereader=csv.reader(Efile)
+        for rec in ereader:
+            if rec==check:
+                print("ERROR")
+                print("!!!!!!Voter ID already exists!!!!!!")
+                quit()       
+    Efile=open("voter_id.csv","a+")
+    stuwriter1=csv.writer(Efile)
+    stuwriter1.writerow([checkid])
+    Efile.close()            
+    return       
 
+print("\n")
 print("WELCOME TO THE VOTER PORTAL")
+print("Voting is the expression of our commitment to ourselves, one another, this country, and this world")
+print('\n')
+print("Here you will be voting for the general elections")
 print("PLEASE COOPERATE AND PROVIDE THE FOLLOWING DETAILS CORRECTLY")
+print("\n")
 record=login_dets()
 constituency=voter_info(record)
 print("NOW WE WILL BE PROVIDING THE CANDIDATE TABLE FOR YOUR REVIEW")
 casting_vote(constituency)
+print("\n")
+print("YOUR PRECIOUS VOTE IS SAFE WITH US")
 print("THANK YOU FOR USING OUR E-ELECTIONS PORTAL")
