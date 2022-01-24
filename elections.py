@@ -44,27 +44,11 @@ def pas_check(p):       #CHECK PASSWORD
     while True:
         if len(p) >= 6 and p.isalnum():
             print('\n\t\t******Approved.*******')
-
             break
         else:
             print('\n\t\t*****ERROR!! Try Again******')
             p = input('create password \n 1.It should be atleast 6 character.\n2.It should contain both number and alphabet.\n3.No special characters.')
 
-
-'''
-def voter_id_check(checkid):  # voter id repetion check
-    check = [checkid]
-    with open("voter_id_cand.csv", "r") as Efile:
-        ereader = csv.reader(Efile)
-        for rec in ereader:
-            if rec == check:                #ERROR
-                print("ERROR")
-                print("!!!!!!Voter ID already exists!!!!!!")
-                quit()
-    Efile = open("voter_id.csv", "a+")
-    stuwriter1 = csv.writer(Efile)
-    stuwriter1.writerow([checkid])
-'''
 
 def voterid_check(v):                                   ####### CHECK #######
     while True:
@@ -105,30 +89,25 @@ def signup():       #SIGNUP FOR CANDIDATE
 
 
 def login():
+    flag = False
     username = input('Enter username : ')
     password = input('Enter password : ')
     with open('signup.csv','r', newline ='\n') as l:
         fh = csv.reader(l)
         next(fh)
-        '''for row in fh:
-            if username == row[-2] and password== row[-1]:
-              print('\n***APPROVED***')
-            else:
-                print('\n***INCORRECT CREDENTIALS TRY AGAIN***\n')
-                username = input('Enter username : ')
-                password = input('Enter password : ')
-'''
         for line in fh:                                
-            if line[-2] != username:                      #check whether username mentioned is correct or not.
-                continue
+            if line[-2] != username:
+                continue                     #check whether username mentioned is correct or not.
             else:
                 if line[-1] == password:
                     print('\n***SUCCESSFULLY LOGGED IN***\n')
+                    flag = True
                     break
                 else:
+                    flag = False
                     password = input('Enter password : ')
+    return flag
                     
-login()
 
         
 
@@ -139,7 +118,7 @@ def table():
     #file_path = 'C:\Users\I539833\Desktop\Aditi\Python Project'
     f = open('campaign.csv','r')
     x = from_csv(f)
-    return x
+    print(x)
 
 
 # DEFINE LOGIN FUNCTION

@@ -1,4 +1,5 @@
 import csv
+from elections import table
 from datetime import date
 Dfile = open("store_.csv", "a+", newline='')
 csv.writer
@@ -33,8 +34,8 @@ def login_dets():  # basicinformation
 def age_check(q):  # agecheck
     if q < 18:
         print("error,voting is only eligible for person who is 18 yrs old or above")
+        age = int(input("Age-"))
         quit()
-        return
 
 
 def age_dob(year, month, day):  # age and dob check
@@ -146,20 +147,10 @@ def voter_id_check(checkid):  # voter id repetion check
     stuwriter1 = csv.writer(Efile)
     stuwriter1.writerow([checkid])
     Efile.close()
-    return
 
 
-print("WELCOME TO OUR E-ELECTIONS PORTAL \n This portal is for the General Elections.")
-print()
-print("Select 1 if you are here to vote.")
-print("Select 2 if you are here to register as a candidate.")
-print("Select 3 if you want to login.(for candidates only)")
-print("Select 4 to view the polled result.")
-print()
-menu_number=int(input("Enter the number corresponding to your choice-->"))
 
-
-if menu_number==4:
+def result():
     file = open("Results.csv")
     csvreader = csv.reader(file)
     header = next(csvreader)
@@ -171,7 +162,8 @@ if menu_number==4:
     file.close()
 
 
-if menu_number==1:
+
+def voter_intro():
     print("\n")
     print("WELCOME TO THE VOTER PORTAL")
     print("Voting is the expression of our commitment to ourselves, one another, this country, and this world")
@@ -182,6 +174,7 @@ if menu_number==1:
     record = login_dets()
     constituency = voter_info(record)
     print("NOW WE WILL BE PROVIDING THE CANDIDATE TABLE FOR YOUR REVIEW")
+    table()
     result_list = casting_vote(constituency)
     print("\n")
     print("YOUR PRECIOUS VOTE IS SAFE WITH US")
@@ -191,3 +184,14 @@ if menu_number==1:
     stuwriter2 = csv.writer(Rfile)
     stuwriter2.writerow(result_list)
     Rfile.close()
+
+def intro():
+    print("WELCOME TO OUR E-ELECTIONS PORTAL \n This portal is for the General Elections.")
+    print()
+    print("Select 1 if you are here to vote.")
+    print("Select 2 if you are here to register as a candidate.")
+    print("Select 3 if you want to login.(for candidates only)")
+    print("Select 4 to view the polled result.")
+    print()
+    menu_number=int(input("Enter the number corresponding to your choice-->"))
+    return menu_number
