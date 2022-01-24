@@ -1,6 +1,6 @@
 import csv
 from datetime import date
-Dfile = open("store_.csv", "a+")
+Dfile = open("store_.csv", "a+", newline='')
 csv.writer
 stuwriter = csv.writer(Dfile)
 
@@ -129,37 +129,65 @@ def casting_vote(c):  # casting vote
     c_symbol = c_symbol.upper()
     vote = [c_party, c_symbol]
     print(vote)
-    return
+    return vote
 
 
 def voter_id_check(checkid):  # voter id repetion check
     check = [checkid]
-    with open("voter_id.csv", "r") as Efile:
+    with open("voter_id.csv", "r", newline='') as Efile:
         ereader = csv.reader(Efile)
         for rec in ereader:
+            print(rec)
             if rec == check:
                 print("ERROR")
                 print("!!!!!!Voter ID already exists!!!!!!")
                 quit()
-    Efile = open("voter_id.csv", "a+")
+    Efile = open("voter_id.csv", "a", newline='')
     stuwriter1 = csv.writer(Efile)
     stuwriter1.writerow([checkid])
     Efile.close()
     return
 
 
-print("\n")
-print("WELCOME TO THE VOTER PORTAL")
-print("Voting is the expression of our commitment to ourselves, one another, this country, and this world")
-print('\n')
-print("Here you will be voting for the general elections")
-print("PLEASE COOPERATE AND PROVIDE THE FOLLOWING DETAILS CORRECTLY")
-print("\n")
-record = login_dets()
-constituency = voter_info(record)
-print("NOW WE WILL BE PROVIDING THE CANDIDATE TABLE FOR YOUR REVIEW")
-casting_vote(constituency)
-print("\n")
-print("YOUR PRECIOUS VOTE IS SAFE WITH US")
-print("THANK YOU FOR USING OUR E-ELECTIONS PORTAL")
-print('\n')
+print("WELCOME TO OUR E-ELECTIONS PORTAL \n This portal is for the General Elections.")
+print()
+print("Select 1 if you are here to vote.")
+print("Select 2 if you are here to register as a candidate.")
+print("Select 3 if you want to login.(for candidates only)")
+print("Select 4 to view the polled result.")
+print()
+menu_number=int(input("Enter the number corresponding to your choice-->"))
+
+
+if menu_number==4:
+    file = open("Results.csv")
+    csvreader = csv.reader(file)
+    header = next(csvreader)
+    rows = []
+    vote_count = {}
+    for row in csvreader:
+        vote_count[row[0]] = vote_count.get(row[0],0) + 1
+    print("THE POLLED RESULT: \n",vote_count)
+    file.close()
+
+
+if menu_number==1:
+    print("\n")
+    print("WELCOME TO THE VOTER PORTAL")
+    print("Voting is the expression of our commitment to ourselves, one another, this country, and this world")
+    print('\n')
+    print("Here you will be voting for the general elections")
+    print("PLEASE COOPERATE AND PROVIDE THE FOLLOWING DETAILS CORRECTLY")
+    print("\n")
+    record = login_dets()
+    constituency = voter_info(record)
+    print("NOW WE WILL BE PROVIDING THE CANDIDATE TABLE FOR YOUR REVIEW")
+    result_list = casting_vote(constituency)
+    print("\n")
+    print("YOUR PRECIOUS VOTE IS SAFE WITH US")
+    print("THANK YOU FOR USING OUR E-ELECTIONS PORTAL")
+    print('\n')
+    Rfile = open("Results.csv", "a", newline='')
+    stuwriter2 = csv.writer(Rfile)
+    stuwriter2.writerow(result_list)
+    Rfile.close()
