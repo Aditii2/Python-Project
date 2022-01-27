@@ -1,9 +1,8 @@
 import csv
+from elections import *
 from datetime import date
 Dfile = open("store_.csv", "a+", newline='')
-csv.writer
 stuwriter = csv.writer(Dfile)
-
 
 def login_dets():  # basicinformation
     f_name = input("First Name-")
@@ -11,31 +10,44 @@ def login_dets():  # basicinformation
     s_name = input("Surname-")
     s_name = s_name.upper()
     age = int(input("Age-"))
-    age_check(age)
+    age_=age_check(age)
+    age=age_
     gender = input("Male(M),Female(F),Other(O)-")
     gender = gender.upper()
-    if gender not in ['M', 'F', 'O']:
-        print("!!!!Invalid information provided!!!!")
-        quit()
+    while True:
+        if gender not in ['M', 'F', 'O']:
+         print("\t!!!!Invalid information provided!!!!")
+         gender = input("Male(M),Female(F),Other(O)-")
+         gender=gender.upper()
+        else:
+            break 
     dob = input("Date of Birth-(dd/mm/yyyy)-")
-    t = dob_check(dob)
+    '''t = dob_check(dob)'''
     d_o_b = age_dob(dob[6:], dob[3:5], dob[0:2])
-    if d_o_b != age:
-        print("!!!!!error,the age and dob do not match!!!!!")
-        quit()
+    while True:
+     if d_o_b != age:
+            print("\t!!!!!error,the age and dob do not match!!!!!")
+            dob = input("Date of Birth-(dd/mm/yyyy)-")
+            '''t = dob_check(dob)'''
+            d_o_b = age_dob(dob[6:], dob[3:5], dob[0:2])
+     else:
+         break           
     record_temp = [f_name, s_name, str(age), gender, dob]
     print('\n')
-    print("!!!!!!!Registration successful!!!!!!!")
+    print("\t!!!!!!!Registration successful!!!!!!!")
     print('\n')
     return record_temp
 
 
 def age_check(q):  # agecheck
-    if q < 18:
-        print("error,voting is only eligible for person who is 18 yrs old or above")
-        quit()
-        return
-
+    while True:
+        if q < 18:
+            print("\t***error,voting is only eligible for person who is 18 yrs old or above***")
+            q = int(input("Age-"))
+        else:
+            break    
+    return q    
+        
 
 def age_dob(year, month, day):  # age and dob check
     today = date.today()
@@ -44,55 +56,32 @@ def age_dob(year, month, day):  # age and dob check
     return age_
 
 
-def dob_check(p):  # datecheck
-    m1 = ['01', '03', '05', '08', '10', '12']
-    m2 = ['04', '06', '07', '09', '11']
-    m3 = ['02']
-    m = p[3:5]
-    d = p[0:2]
-    y = p[6:]
-    if m in m1:
-        if d > "31":
-            print("error in dob")
-            print("Try Again")
-            quit()
-    if m in m2:
-        if d > "30":
-            print("error in dob")
-            print("Try Again")
-            quit()
-    if m in m3:
-        if d == "29":
-            if int(y) % 4 != 0:
-                print("error in dob")
-                print("Try Again")
-                quit()
-        elif d > "29":
-            print("error in dob")
-            print("Try Again")
-            quit()
-    return
-
-
 def voter_info(a):  # voting information
     id_ = input("Voter ID-")
-    if id_.isalnum == False:
-        print('!!!!Invalid voter ID, voter ID should be alphanumeric. PLEASE TRY AGAIN!!!!')
-        quit()
-    if len(id_) != 10:
-        print('!!!!Ivalid Voter ID, Voter ID is a combination of 10 alphanumeric characters. PLEASE TRY AGAIN!!!!')
-        quit()
-    if id_[0:3].isalpha == False:
-        print('!!!!Invalid Voter ID!!!!')
-        quit()
-    if id_[0:3].isupper() == False:
-        print('!!!!Invalid Voter ID!!!!')
-        quit()
-    voter_id_check(id_)
+    while True:
+        if id_.isalnum() == False or len(id_) != 10:
+            print('***ERROR TRY AGAIN***')
+            id_ = input('Enter your voter id ')
+        elif id_[0:3].isalpha() == False:
+            print('***ERROR TRY AGAIN***')
+            id_ = input('Enter your voter id ')
+        elif id_[0:3].isupper()== False:
+            print('***ERROR TRY AGAIN***')
+            id_ = input('Enter your voter id ')
+        elif id_[3:].isnumeric() == False:
+            print('***ERROR TRY AGAIN***')
+            id_ = input('Enter your voter id ')
+        else:
+            break    
+    cc=voter_id_check(id_)
+    cc=id_
     resd_, check_resd = address()
     const_ = input("Constituency from where you would like to vote-")
     const_ = const_.upper()
-    constituency_check(check_resd, const_)
+    r=constituency_check(check_resd, const_)
+    print(r)
+    const_=r
+    const_ = const_.upper()
     ext = [id_, resd_, const_]
     final_rec = a+ext
     stuwriter.writerow(final_rec)
@@ -101,65 +90,84 @@ def voter_info(a):  # voting information
 
 
 def address():  # address collector
-    print("***Please provide the following details as per your address written in Aadhar Card***")
-    x = input("House/street/lane/appt. name/sector no.->")
+    print('\n')
+    print("\t***Please provide the following details as per your address written in Aadhar Card***")
+    print("\n")
+    x = input("House/street/appt. name/sector no.->")
     x = x.upper()
-    y = input("Town->")
+    y = input("Area/Locality->")
     y = y.upper()
     z = input("District->")
     z = z.upper()
+    while True:
+        if z != 'EAST DELHI':
+            print("\n***This portal is for the General Elections of EAST DELHI only. Any other district provided is invalid as per the credentials.***")
+            print("Select any number to exit")
+            print("Select # to try again.")
+            menu=input("Your corresponding choice-")
+            if menu=='#':
+                z=(input("District-")).upper()
+            else:
+                quit()    
+        else:
+            break    
     w = input("State->")
     w = w.upper()
     address_ = x+','+y+','+z+','+w
     return address_, z
 
-
 def constituency_check(o, n):  # constituency and dstrict check
-    if n != o:
-        print("*****error, address credentials do not match with the constituency from where you want to vote*****")
-        quit()
-    return
-
+    constituency_list=["GANDHI NAGAR","KONDLI","PATPARGANJ","KRISHNA NAGAR","TRILOKPURI","LAXMI NAGAR","VISHWAS NAGAR","OKHLA"]
+    while True:
+       if n not in constituency_list:
+           print("\t*****error, address credentials do not match with the constituency from where you want to vote*****")
+           n=input("Constituency from where you would like to vote-")
+       else:
+           break
+    print(n)    
+    return n
 
 def casting_vote(c):  # casting vote
+    print('\n')
     print("Constituency-", c)
     c_party = input("Party Name-")
     c_symbol = input("Symbol-")
     c_party = c_party.upper()
     c_symbol = c_symbol.upper()
     vote = [c_party, c_symbol]
-    print(vote)
-    return vote
+    with open("campaign.csv",'r') as fh:
+        data=csv.reader(fh)
+        for party in data:                                                
+                if party[2]==c_party:
+                    listcheck=party
+                    if listcheck[3] == c_symbol:
+                        return vote
+                    else:
+                        while True:
+                            print("\t\t***ERROR***\n INVALID SYMBOL")
+                            c_symbol = (input("Symbol-")).upper()
+                            if listcheck[3] == c_symbol:
+                                vote = [c_party, c_symbol]
+                                return vote              
+        else:                
+            print("Party does not exists")
+            quit()
 
 
 def voter_id_check(checkid):  # voter id repetion check
     check = [checkid]
-    with open("voter_id.csv", "r", newline='') as Efile:
-        ereader = csv.reader(Efile)
-        for rec in ereader:
-            print(rec)
-            if rec == check:
-                print("ERROR")
-                print("!!!!!!Voter ID already exists!!!!!!")
-                quit()
-    Efile = open("voter_id.csv", "a", newline='')
+    Efile=open("voter_id.csv", "r")
+    ereader = csv.reader(Efile)
+    for rec in ereader:
+        if rec == check:
+            print("\t\tERROR")
+            print("!!!!!!Voter ID already exists!!!!!!")
+            quit()
+    Efile=open("voter_id.csv","a+",newline='')   
     stuwriter1 = csv.writer(Efile)
-    stuwriter1.writerow([checkid])
-    Efile.close()
-    return
+    stuwriter1.writerow([checkid])               
 
-
-print("WELCOME TO OUR E-ELECTIONS PORTAL \n This portal is for the General Elections.")
-print()
-print("Select 1 if you are here to vote.")
-print("Select 2 if you are here to register as a candidate.")
-print("Select 3 if you want to login.(for candidates only)")
-print("Select 4 to view the polled result.")
-print()
-menu_number=int(input("Enter the number corresponding to your choice-->"))
-
-
-if menu_number==4:
+def result():
     file = open("Results.csv")
     csvreader = csv.reader(file)
     header = next(csvreader)
@@ -168,10 +176,13 @@ if menu_number==4:
     for row in csvreader:
         vote_count[row[0]] = vote_count.get(row[0],0) + 1
     print("THE POLLED RESULT: \n",vote_count)
-    file.close()
+    file.close()   
+    v=list(vote_count.values())
+    k=list(vote_count.keys())
+    win=k[v.index(max(v))]
+    print("THE MAJORITY PARTY:",win,"VOTES:",max(v))
 
-
-if menu_number==1:
+def voter_intro():
     print("\n")
     print("WELCOME TO THE VOTER PORTAL")
     print("Voting is the expression of our commitment to ourselves, one another, this country, and this world")
@@ -182,6 +193,8 @@ if menu_number==1:
     record = login_dets()
     constituency = voter_info(record)
     print("NOW WE WILL BE PROVIDING THE CANDIDATE TABLE FOR YOUR REVIEW")
+    print('\n')
+    table()
     result_list = casting_vote(constituency)
     print("\n")
     print("YOUR PRECIOUS VOTE IS SAFE WITH US")
@@ -191,3 +204,29 @@ if menu_number==1:
     stuwriter2 = csv.writer(Rfile)
     stuwriter2.writerow(result_list)
     Rfile.close()
+
+def intro():
+    print("WELCOME TO OUR E-ELECTIONS PORTAL \n This portal is for the General Elections of EAST DELHI FOR MP.(Member of Parliament)")
+    print()
+    print("Select 1 if you are here to vote.")
+    print("Select 2 if you are here to register as a candidate.")
+    print("Select 3 if you want to login.(for candidates only)")
+    print("Select 4 to view the polled result.")
+    print("Select 5 to view the voting gender statistics.")
+    print("Select 6 to view the candidate gender statistics.")
+    print("Select any number to exit.")
+    print()
+    menu_number=int(input("Enter the number corresponding to your choice-->"))
+    return menu_number
+
+def voting_perc():
+    print("M:MALE\nF:FEMALE\nO:OTHERS")
+    file = open("store_.csv")
+    csvreader = csv.reader(file)
+    header = next(csvreader)
+    rows = []
+    gender_ratio = {}
+    for row in csvreader:
+        gender_ratio[row[3]] = gender_ratio.get(row[3],0) + 1
+    print(gender_ratio)
+

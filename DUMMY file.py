@@ -1,14 +1,11 @@
 import csv
-import pwinput
-
-def e_campaign():   #FUNCTION FOR CANDIDATE FOR E CAMPAIGNING
-    print("\nWELCOME TO E-CAMPAIGN PORTAL\n") 
+def e_campaign():   #FUNCTION FOR CANDIDATE FOR E CAMPAIGNING 
     work_done =[]
     future_plan = []
-    cname = (input('Enter your name : ')).upper()
-    sname=(input("Enter your surname : ")).upper()
-    pname = (input('Enter your party name : ')).upper()
-    psym = (input('Enter your party symbol : ')).upper()
+    cname = input('Enter your name : ')
+    
+    pname = input('Enter your party name : ')
+    psym = input('Enter your party symbol : ')
     
     while True:
         resp = input('do you want to enter previous work done? (y/n)')
@@ -28,7 +25,7 @@ def e_campaign():   #FUNCTION FOR CANDIDATE FOR E CAMPAIGNING
             break
     with open('campaign.csv','a',newline='') as fh:
         dat = csv.writer(fh)  
-        dat.writerow([cname,sname,pname,psym,work_done,future_plan])
+        dat.writerow([cname,pname,psym,work_done,future_plan])
 
 def num_validader(n):       #CHECK ON ENTERED MOBILE NUMBER
     while True:
@@ -62,9 +59,6 @@ def voterid_check(v):                                   ####### CHECK #######
         elif v[0:3].isalpha() == False:
             print('***ERROR TRY AGAIN***')
             v = input('Enter your voter id ')
-        elif v[0:3].isupper()== False:
-            print('***ERROR TRY AGAIN***')
-            v = input('Enter your voter id ')
         elif v[3:].isnumeric() == False:
             print('***ERROR TRY AGAIN***')
             v = input('Enter your voter id ')
@@ -75,53 +69,26 @@ def voterid_check(v):                                   ####### CHECK #######
             print('Voter id approved.')
             break
 
+
 def signup():       #SIGNUP FOR CANDIDATE
-    name = (input('Enter your first name ')).upper()
-    lname = (input('Enter your last name ')).upper()
-    gender = (input("Male(M),Female(F),Other(O)-")).upper()
-    while True:
-        if gender not in ['M', 'F', 'O']:
-         print("\t!!!!Invalid information provided!!!!")
-         gender = (input("Male(M),Female(F),Other(O)-")).upper()
-        else:
-            break 
+    name = input('Enter your first name ')
+    lname = input('Enter your last name ')
     num = int(input('Enter your mobile number '))
     num_validader(num)
     id = input('Enter your voter id ')
-    voter_id_check(id)
+    voterid_check(id)
     usern = username(id)
-    password = pwinput.pwinput(prompt='create password \n\n 1.It should be atleast 6 character.\n 2.It should contain both number and alphabet.\n 3.No special characters.\n\n Enter: ', mask='*') # Change the prompt.
-    pas_check(password)
+    pas = input('create password \n\n 1.It should be atleast 6 character.\n 2.It should contain both number and alphabet.\n 3.No special characters.\n\n Enter : ')
+    pas_check(pas)
     print('\nYOUR USERNAME : ',usern)
     with open('signup.csv','a',newline='\n') as s:
         fh = csv.writer(s)
-        fh.writerow([name,lname,gender,num,id,usern,password])
+        fh.writerow([name,lname,num,id,usern,pas])
     print('SUCCESSFULY CREATED AN ACCOUNT.\n\nLOGIN\n')
     login()
 
-'''
+
 def login():
-    flag = False
-    username = input('Enter username : ')
-    password = input('Enter password : ')
-    with open('signup.csv','r', newline ='\n') as l:
-        fh = csv.reader(l)
-        next(fh)
-        for line in fh:                                
-            if line[-2] != username:
-                print("User does not exists")
-                continue                     #check whether username mentioned is correct or not.
-            else:
-                if line[-1] == password:
-                    print('\n***SUCCESSFULLY LOGGED IN***\n')
-                    flag = True
-                    break
-                else:
-                    flag = False
-                    password = input('Enter password : ')
-    return flag
-      '''              
-def login(): #Dummy func
     username = input('Enter username : ')
     with open('signup.csv','r', newline ='\n') as l:
         fh = csv.reader(l)
@@ -129,7 +96,7 @@ def login(): #Dummy func
         for line in fh:                                                
             if line[-2]==username:
                 listcheck=line
-                password = pwinput.pwinput(prompt='Enter Password : ', mask='*') # Change the prompt.
+                password = input('Enter password : ')
                 if listcheck[-1] == password:
                     print('\n***SUCCESSFULLY LOGGED IN***\n')
                     break
@@ -137,11 +104,10 @@ def login(): #Dummy func
                     while True:
                         print("\t\t***ERROR***")
                         print("\t\t wrong password\n\t\tTRY AGAIN")
-                        password = pwinput.pwinput(prompt='Enter Password : ', mask='*') # Change the prompt.
+                        password = input('Enter password : ')
                         if listcheck[-1] == password:
                             print('\n***SUCCESSFULLY LOGGED IN***\n')
                             break
-                    break            
         else:                
             print("User does not exists")
             quit() 
@@ -155,28 +121,7 @@ def table():
     x = from_csv(f)
     print(x)
 
-def candidate_perc():
-    print("M:MALE\nF:FEMALE\nO:OTHERS")
-    file = open("signup.csv")
-    csvreader = csv.reader(file)
-    header = next(csvreader)
-    rows = []
-    gender_ratio = {}
-    for row in csvreader:
-        gender_ratio[row[2]] = gender_ratio.get(row[2],0) + 1
-    print(gender_ratio)
-    file.close()
 
+# DEFINE LOGIN FUNCTION
 
-def voter_id_check(checkid):  # voter id repetion check
-    check = [checkid]
-    Efile=open("voterid_can.csv", "r")
-    ereader = csv.reader(Efile)
-    for rec in ereader:
-        if rec == check:
-            print("\t\tERROR")
-            print("!!!!!!Voter ID already exists!!!!!!")
-            quit()
-    Efile=open("voterid_can.csv","a+",newline='')   
-    stuwriter1 = csv.writer(Efile)
-    stuwriter1.writerow([checkid])
+signup()

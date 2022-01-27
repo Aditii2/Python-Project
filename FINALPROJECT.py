@@ -1,25 +1,37 @@
-
-#voter
- 
-from elections import e_campaign, table
 import csv
+from elections import *
+from Voter import *
 
 
 def create_CSVs():
-    with open('campaign.csv','w',newline='') as ec:
-        data = csv.writer(ec)  
-        data.writerow(['CANDIDATE','PARTY','SYMBOL','WORK DONE','FUTURE PLAN'])
+    with open('campaign.csv', 'a+', newline='') as ec:
+        data = csv.writer(ec)
 
-    with open('signup.csv','w') as s:
+    with open('signup.csv', 'a+') as s:
         fh = csv.writer(s)
-        fh.writerow(['NAME','LAST NAME','MOBILE NUMBER','VOTER ID','USERNAME','PASSWORD'])
-    
-    
 
+    Dfile = open("store_.csv", "a+", newline='')
+    stuwriter = csv.writer(Dfile)
 
 
 create_CSVs()
-for i in range (1,3):
-    e_campaign()
-#print(table())
 
+menu = intro()
+
+if menu == 1:
+    voter_intro()
+elif menu == 2:
+    signup()
+    e_campaign()
+    table()
+elif menu == 3:
+        login()
+        table()
+elif menu == 4:
+    result()
+elif menu==5:
+    voting_perc()
+elif menu==6:
+    candidate_perc()    
+else:
+    quit()
