@@ -97,6 +97,19 @@ def address():  # address collector
     x = x.upper()
     y = input("Area/Locality->")
     y = y.upper()
+    area_list=['AZAD NAGAR','ANAND VIHAR','ANAND VIHAR COLONY','BABARPUR','BAHUBALI ENCLAVE','BALBIR NAGAR','DALLUPURA','DAYANAND VIHAR','DILSHAD COLONY','DILSHAD GARDEN','DURGA PURI','EAST VINOD NAGAR','GANDHI NAGAR','GANESH NAGAR','GAZIPUR','GEETA COLONY','GUJARAT VIHAR','HASANPUR VILLAGE','JAGATPURI','JHILMIL COLONY','JYOTI NAGAR(EAST)','JYOTI NAGAR(WEST)','KANTI NAGAR','KONDI','KALYAN PURI','KHUREJI KHAS','KRISHNA NAGAR','LAXMI NAGAR','MANDAOLI','MANDAWALI','MAYUR VIHAR','MAYUR VIHAR PHASE 1','MAYUR VIHAR PHASE 2','MAYUR VIHAR PHASE - 3','NEW ASHOK NAGAR','NEW GOBIND PURA','NEW KONDLI','NEW LAYALPUR COLONY','NIRMAN VIHAR','OLD ANARKALI','PANDAV NAGAR','PATPARGANJ','I.P.EXTENSION','PREET VIHAR','PUSPANJALI','SAINI ENCLAVE','SAVITA VIHAR','SHAHDARA','SHAKARPUR','SHRESHTHA VIHAR','SURAJMAL VIHAR','SURYA NIKETAN','SWASTHYA VIHAR','TAHIRPUR','TRILOKPURI','VASUNDHARA ENCLAVE','VISHWAS NAGAR','VIVEK VIHAR','VIGYAN VIHAR','WEST VINOD NAGAR','YAMUNA VIHAR','YOJANA VIHAR','MANSAROVAR PARK']
+    while True:
+        if y not in area_list:
+            print("\nThis portal is for the General Elections of EAST DELHI only.Any other area/locality provided is invalid as per the credentials.")
+            print("Select any number to exit")
+            print("Select @ to try again.")
+            menu_no=input("Your corresponding choice-")
+            if menu_no=="@":
+                y=(input("Area/Locality->")).upper()
+            else:
+                quit()    
+        else:
+            break   
     z = input("District->")
     z = z.upper()
     while True:
@@ -117,9 +130,8 @@ def address():  # address collector
     return address_, z
 
 def constituency_check(o, n):  # constituency and dstrict check
-    constituency_list=["GANDHI NAGAR","KONDLI","PATPARGANJ","KRISHNA NAGAR","TRILOKPURI","LAXMI NAGAR","VISHWAS NAGAR","OKHLA"]
     while True:
-       if n not in constituency_list:
+       if n!=o:
            print("\t*****error, address credentials do not match with the constituency from where you want to vote*****")
            n=input("Constituency from where you would like to vote-")
        else:

@@ -20,8 +20,8 @@
 #add voterid check candidate------------
 #constituency east de check---------
 #while voting party symbol check----------------
-#add list of major localities of east delhi with area check
-#remove area and locality
+#add list of major localities of east delhi with area check--------------
+#remove area and locality---------------
 #format of dob if not in
 #show data of candidate only while logging in
 
