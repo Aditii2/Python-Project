@@ -1,10 +1,10 @@
 import csv
-from elections import *
+from candidate import *
 from datetime import date
 Dfile = open("store_.csv", "a+", newline='')
 stuwriter = csv.writer(Dfile)
 
-def login_dets():  # basicinformation
+def login_dets():  # basic information of voter
     f_name = input("First Name-")
     f_name = f_name.upper()
     s_name = input("Surname-")
@@ -22,13 +22,11 @@ def login_dets():  # basicinformation
         else:
             break 
     dob = input("Date of Birth-(dd/mm/yyyy)-")
-    '''t = dob_check(dob)'''
     d_o_b = age_dob(dob[6:], dob[3:5], dob[0:2])
     while True:
      if d_o_b != age:
             print("\t!!!!!error,the age and dob do not match!!!!!")
             dob = input("Date of Birth-(dd/mm/yyyy)-")
-            '''t = dob_check(dob)'''
             d_o_b = age_dob(dob[6:], dob[3:5], dob[0:2])
      else:
          break           
@@ -179,7 +177,7 @@ def voter_id_check(checkid):  # voter id repetion check
     stuwriter1 = csv.writer(Efile)
     stuwriter1.writerow([checkid])               
 
-def result():
+def result():       #polled result
     file = open("Results.csv")
     csvreader = csv.reader(file)
     header = next(csvreader)
@@ -194,9 +192,9 @@ def result():
     win=k[v.index(max(v))]
     print("THE MAJORITY PARTY:",win,"VOTES:",max(v))
 
-def voter_intro():
+def voter_intro():      #intro for voting portal
     print("\n")
-    print("WELCOME TO THE VOTER PORTAL")
+    print("WELCOME TO THE VOTING PORTAL")
     print("Voting is the expression of our commitment to ourselves, one another, this country, and this world")
     print('\n')
     print("Here you will be voting for the general elections")
@@ -217,7 +215,7 @@ def voter_intro():
     stuwriter2.writerow(result_list)
     Rfile.close()
 
-def intro():
+def intro():            #MAIN MENU 
     print("WELCOME TO OUR E-ELECTIONS PORTAL \n This portal is for the General Elections of EAST DELHI FOR MP.(Member of Parliament)")
     print()
     print("Select 1 if you are here to vote.")
@@ -231,7 +229,7 @@ def intro():
     menu_number=int(input("Enter the number corresponding to your choice-->"))
     return menu_number
 
-def voting_perc():
+def voting_perc():          #REPORT
     print("M:MALE\nF:FEMALE\nO:OTHERS")
     file = open("store_.csv")
     csvreader = csv.reader(file)
@@ -241,4 +239,3 @@ def voting_perc():
     for row in csvreader:
         gender_ratio[row[3]] = gender_ratio.get(row[3],0) + 1
     print(gender_ratio)
-

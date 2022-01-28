@@ -1,5 +1,5 @@
 import csv
-from elections import *
+from candidate import *
 from Voter import *
 
 
@@ -23,10 +23,9 @@ if menu == 1:
 elif menu == 2:
     signup()
     e_campaign()
-    table()
 elif menu == 3:
-        login()
-        table()
+    x = login()
+    show_data()
 elif menu == 4:
     result()
 elif menu==5:
