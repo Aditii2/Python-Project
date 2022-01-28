@@ -16,7 +16,7 @@ def login_dets():  # basic information of voter
     gender = gender.upper()
     while True:
         if gender not in ['M', 'F', 'O']:
-         print("\t!!!!Invalid information provided!!!!")
+         print("\t****Invalid information provided****")
          gender = input("Male(M),Female(F),Other(O)-")
          gender=gender.upper()
         else:
@@ -25,14 +25,14 @@ def login_dets():  # basic information of voter
     d_o_b = age_dob(dob[6:], dob[3:5], dob[0:2])
     while True:
      if d_o_b != age:
-            print("\t!!!!!error,the age and dob do not match!!!!!")
+            print("\t*****error,the age and dob do not match*****")
             dob = input("Date of Birth-(dd/mm/yyyy)-")
             d_o_b = age_dob(dob[6:], dob[3:5], dob[0:2])
      else:
          break           
     record_temp = [f_name, s_name, str(age), gender, dob]
     print('\n')
-    print("\t!!!!!!!Registration successful!!!!!!!")
+    print("\t*******Registration successful*******")
     print('\n')
     return record_temp
 
@@ -93,13 +93,17 @@ def address():  # address collector
     print("\n")
     x = input("House/street/appt. name/sector no.->")
     x = x.upper()
+    area_list=['AZAD NAGAR','ANAND VIHAR','ANAND VIHAR COLONY','BABARPUR','BAHUBALI ENCLAVE','BALBIR NAGAR','DALLUPURA','DAYANAND VIHAR','DILSHAD COLONY','DILSHAD GARDEN','DURGA PURI','EAST VINOD NAGAR','GANDHI NAGAR','GANESH NAGAR','GAZIPUR','GEETA COLONY','GUJARAT VIHAR','HASANPUR VILLAGE','JAGATPURI','JHILMIL COLONY','JYOTI NAGAR(EAST)','JYOTI NAGAR(WEST)','KANTI NAGAR','KONDI','KALYAN PURI','KHUREJI KHAS','KRISHNA NAGAR','LAXMI NAGAR','MANDAOLI','MANDAWALI','MAYUR VIHAR','MAYUR VIHAR PHASE 1','MAYUR VIHAR PHASE 2','MAYUR VIHAR PHASE - 3','NEW ASHOK NAGAR','NEW GOBIND PURA','NEW KONDLI','NEW LAYALPUR COLONY','NIRMAN VIHAR','OLD ANARKALI','PANDAV NAGAR','PATPARGANJ','I.P.EXTENSION','PREET VIHAR','PUSPANJALI','SAINI ENCLAVE','SAVITA VIHAR','SHAHDARA','SHAKARPUR','SHRESHTHA VIHAR','SURAJMAL VIHAR','SURYA NIKETAN','SWASTHYA VIHAR','TAHIRPUR','TRILOKPURI','VASUNDHARA ENCLAVE','VISHWAS NAGAR','VIVEK VIHAR','VIGYAN VIHAR','WEST VINOD NAGAR','YAMUNA VIHAR','YOJANA VIHAR','MANSAROVAR PARK']
+    print("The Major Localities in East Delhi are as follows: \n",)
+    for i in area_list:
+        print(i,end=" , ")
+    print("\n On the basis of the above segment, please provide the following informations.")    
     y = input("Area/Locality->")
     y = y.upper()
-    area_list=['AZAD NAGAR','ANAND VIHAR','ANAND VIHAR COLONY','BABARPUR','BAHUBALI ENCLAVE','BALBIR NAGAR','DALLUPURA','DAYANAND VIHAR','DILSHAD COLONY','DILSHAD GARDEN','DURGA PURI','EAST VINOD NAGAR','GANDHI NAGAR','GANESH NAGAR','GAZIPUR','GEETA COLONY','GUJARAT VIHAR','HASANPUR VILLAGE','JAGATPURI','JHILMIL COLONY','JYOTI NAGAR(EAST)','JYOTI NAGAR(WEST)','KANTI NAGAR','KONDI','KALYAN PURI','KHUREJI KHAS','KRISHNA NAGAR','LAXMI NAGAR','MANDAOLI','MANDAWALI','MAYUR VIHAR','MAYUR VIHAR PHASE 1','MAYUR VIHAR PHASE 2','MAYUR VIHAR PHASE - 3','NEW ASHOK NAGAR','NEW GOBIND PURA','NEW KONDLI','NEW LAYALPUR COLONY','NIRMAN VIHAR','OLD ANARKALI','PANDAV NAGAR','PATPARGANJ','I.P.EXTENSION','PREET VIHAR','PUSPANJALI','SAINI ENCLAVE','SAVITA VIHAR','SHAHDARA','SHAKARPUR','SHRESHTHA VIHAR','SURAJMAL VIHAR','SURYA NIKETAN','SWASTHYA VIHAR','TAHIRPUR','TRILOKPURI','VASUNDHARA ENCLAVE','VISHWAS NAGAR','VIVEK VIHAR','VIGYAN VIHAR','WEST VINOD NAGAR','YAMUNA VIHAR','YOJANA VIHAR','MANSAROVAR PARK']
     while True:
         if y not in area_list:
             print("\nThis portal is for the General Elections of EAST DELHI only.Any other area/locality provided is invalid as per the credentials.")
-            print("Select any number to exit")
+            print("Select any key to exit")
             print("Select @ to try again.")
             menu_no=input("Your corresponding choice-")
             if menu_no=="@":
@@ -113,7 +117,7 @@ def address():  # address collector
     while True:
         if z != 'EAST DELHI':
             print("\n***This portal is for the General Elections of EAST DELHI only. Any other district provided is invalid as per the credentials.***")
-            print("Select any number to exit")
+            print("Select any key to exit")
             print("Select # to try again.")
             menu=input("Your corresponding choice-")
             if menu=='#':
@@ -171,7 +175,7 @@ def voter_id_check(checkid):  # voter id repetion check
     for rec in ereader:
         if rec == check:
             print("\t\tERROR")
-            print("!!!!!!Voter ID already exists!!!!!!")
+            print("******Voter ID already exists******")
             quit()
     Efile=open("voter_id.csv","a+",newline='')   
     stuwriter1 = csv.writer(Efile)
