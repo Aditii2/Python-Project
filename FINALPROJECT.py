@@ -25,7 +25,7 @@ elif menu == 2:
     e_campaign()
 elif menu == 3:
     x = login()
-    show_data()
+    show_data(x)
 elif menu == 4:
     result()
 elif menu==5:

@@ -186,5 +186,5 @@ def show_data(a):       # CANDIDATE CAMPAIGNING DATA AFTER LOGIN
                                 print('PARTY\t                  : ',l[2])
                                 print('SYMBOL\t                  : ',l[3])
                                 print('PREVIOUS WORK DONE\t  : ',l[4])
-                                print('CURRENT AGENDA\t          : ',l[0])
+                                print('CURRENT AGENDA\t          : ',l[5])
                                     
