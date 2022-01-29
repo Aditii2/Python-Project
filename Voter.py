@@ -77,7 +77,6 @@ def voter_info(a):  # voting information
     const_ = input("Constituency from where you would like to vote-")
     const_ = const_.upper()
     r=constituency_check(check_resd, const_)
-    print(r)
     const_=r
     const_ = const_.upper()
     ext = [id_, resd_, const_]
@@ -97,7 +96,8 @@ def address():  # address collector
     print("The Major Localities in East Delhi are as follows: \n",)
     for i in area_list:
         print(i,end=" , ")
-    print("\n On the basis of the above segment, please provide the following informations.")    
+    print("\n")    
+    print("On the basis of the above segment, please provide the following informations.")    
     y = input("Area/Locality->")
     y = y.upper()
     while True:
@@ -205,7 +205,13 @@ def result():       #polled result
     v=list(vote_count.values())
     k=list(vote_count.keys())
     win=k[v.index(max(v))]
-    print("THE MAJORITY PARTY:",win,"VOTES:",max(v))
+    P=0
+    for i in v:
+        P+=i
+    print("\n")    
+    print("TOTAL NUMBER OF VOTES:",P)
+    print("\n")
+    print("THE MAJORITY PARTY:",win,"\nVOTES:",max(v))
 
 def voter_intro():      #intro for voting portal
     print("\n")
