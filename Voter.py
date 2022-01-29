@@ -128,6 +128,18 @@ def address():  # address collector
             break    
     w = input("State->")
     w = w.upper()
+    while True:
+        if w != 'NEW DELHI':
+            print("\n***This portal is for the General Elections of EAST DELHI only. Any other state provided is invalid as per the credentials.***")
+            print("Select any key to exit")
+            print("Select % to try again.")
+            menu=input("Your corresponding choice-")
+            if menu=='%':
+                w=(input("State-")).upper()
+            else:
+                quit()    
+        else:
+            break    
     address_ = x+','+y+','+z+','+w
     return address_, z
 
@@ -137,8 +149,7 @@ def constituency_check(o, n):  # constituency and dstrict check
            print("\t*****error, address credentials do not match with the constituency from where you want to vote*****")
            n=input("Constituency from where you would like to vote-")
        else:
-           break
-    print(n)    
+           break    
     return n
 
 def casting_vote(c):  # casting vote
